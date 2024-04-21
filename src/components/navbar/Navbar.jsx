@@ -11,6 +11,9 @@ const Navbar = () => {
       <div className={styles.add}>
         <NavLink to={"/add"}>Add product</NavLink>
       </div>
+      <div className={styles.register}>
+        <NavLink to={"/register"}>Register</NavLink>
+      </div>
     </div>
   );
 };
