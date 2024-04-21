@@ -1,20 +1,23 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { productsContext } from "../../context/ProductsContextProvider";
 
-const AdddProduct = ({ createProduct }) => {
+const AdddProduct = () => {
+  const { createProduct } = useContext(productsContext);
+
   const [title, setTitle] = useState("");
   const [price, setPrice] = useState("");
   const [descr, setDescr] = useState("");
   const [image, setImage] = useState("");
 
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   function handleAddProduct() {
     if (!title || !price || !image || !descr) {
       alert("Some inputs are empty");
       return;
     }
-    let newProduct = {                   
+    let newProduct = {
       title,
       price,
       descr,
@@ -24,9 +27,9 @@ const AdddProduct = ({ createProduct }) => {
     createProduct(newProduct);
     setTitle("");
     setPrice("");
-    setDescr("");   
+    setDescr("");
     setImage("");
-    navigate(-1)
+    navigate(-1);
   }
 
   return (

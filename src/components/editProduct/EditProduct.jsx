@@ -1,29 +1,32 @@
-import React, { useEffect, useState } from 'react'
-import { useNavigate, useParams } from 'react-router-dom';
+import React, { useContext, useEffect, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
+import { productsContext } from "../../context/ProductsContextProvider";
 
-const EditProduct = ({ oneProduct, getOneProduct, editProduct }) => {
-  const navigate = useNavigate()
+const EditProduct = () => {
+  const { oneProduct, getOneProduct, editProduct } =
+    useContext(productsContext);
 
-    const { id } = useParams();
+  const navigate = useNavigate();
 
-    const [title, setTitle] = useState  ("");
-    const [price, setPrice] = useState("");
-    const [descr, setDescr] = useState("");
-    const [image, setImage] = useState("");  
+  const { id } = useParams();
 
-  useEffect(() => {                      
-    getOneProduct(id);                       
+  const [title, setTitle] = useState("");
+  const [price, setPrice] = useState("");
+  const [descr, setDescr] = useState("");
+  const [image, setImage] = useState("");
+
+  useEffect(() => {
+    getOneProduct(id);
   }, []);
 
   useEffect(() => {
-    if(oneProduct) {
-      setTitle(oneProduct.title)
-      setPrice(oneProduct.price)
+    if (oneProduct) {
+      setTitle(oneProduct.title);
+      setPrice(oneProduct.price);
       setDescr(oneProduct.descr);
       setImage(oneProduct.image);
-
     }
-  }, [oneProduct])
+  }, [oneProduct]);
   // console.log(oneProduct, "oneproduct");
 
   function handleSaveChanges() {
@@ -32,24 +35,38 @@ const EditProduct = ({ oneProduct, getOneProduct, editProduct }) => {
       price,
       descr,
       image,
-    }
+    };
 
-    editProduct(id, editedProduct)
-    navigate('/')
+    editProduct(id, editedProduct);
+    navigate("/");
   }
-
-
 
   return (
     <div>
-      <input type="text" value={title} onChange={(e) => setTitle(e.target.value)}/>
-      <input type="text" value={price} onChange={(e) => setPrice(e.target.value)}/>
-      <input type="text" value={descr} onChange={(e) => setDescr(e.target.value)}/>
-      <input type="text" value={image} onChange={(e) => setImage(e.target.value)}/>
+      <input
+        type="text"
+        value={title}
+        onChange={(e) => setTitle(e.target.value)}
+      />
+      <input
+        type="text"
+        value={price}
+        onChange={(e) => setPrice(e.target.value)}
+      />
+      <input
+        type="text"
+        value={descr}
+        onChange={(e) => setDescr(e.target.value)}
+      />
+      <input
+        type="text"
+        value={image}
+        onChange={(e) => setImage(e.target.value)}
+      />
 
       <button onClick={handleSaveChanges}>Save changes</button>
     </div>
   );
 };
 
-export default EditProduct
+export default EditProduct;
