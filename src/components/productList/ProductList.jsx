@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useContext, useEffect } from 'react'
 
 import Card from "@mui/material/Card";
 import CardActions from "@mui/material/CardActions";
@@ -7,9 +7,11 @@ import CardMedia from "@mui/material/CardMedia";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import { Link } from 'react-router-dom';
+import { productsContext } from '../../context/ProductsContextProvider';
 
 
-const ProductList = ({ readProducts, products, deleteProduct }) => {
+const ProductList = () => {
+  const { readProducts, products, deleteProduct } = useContext(productsContext)
   useEffect(() => {
     readProducts();
   }, []);
