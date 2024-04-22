@@ -1,63 +1,66 @@
-import React, { useState } from "react";
+import React, { useContext } from "react";
+import { authContext } from "../../context/AuthProvider";
 
 const RegisterPage = () => {
-  const [user, setUser] = useState({
-    name: "",
-    email: "",
-    password: "",
-    passwordConfirm: "",
-  });
+  const { register } = useContext(authContext );
 
-  function handleChange(e) {
-    const { name, value } = e.target;
-    setUser({ ...user, [name]: value });
-  }
+  const {
+    username,
+    setUsername,
+    email,
+    setEmail,
+    password,
+    setPassword,
+    confirm,
+    setConfirm,
+  } = useContext(authContext);
 
-  function handleSubmit(e) {
-    e.preventDefault();
-    for (let key in user) {
-      if (!user[key].trim()) {
-        alert("Some inputs are empty!");
-        return;
-      }
-    }
-  }
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    register({ username, email, password, confirm });
+    setUsername("");
+    setEmail("");
+    setPassword("");
+    setConfirm("");
+  };
 
   return (
-    <div>
-      <h1>RegisterPage</h1>
-      <form action="" onSubmit={handleSubmit}>
+    <form onSubmit={handleSubmit}>
+      <div>
+        <label>Username:</label>
         <input
-          onChange={handleChange}
-          value={user.name}
-          name="name"
           type="text"
-          placeholder="Name"
+          value={username}
+          onChange={(e) => setUsername(e.target.value)}
         />
+      </div>
+      <div>
+        <label>Email:</label>
         <input
-          onChange={handleChange}
-          value={user.email}
-          name="email"
           type="email"
-          placeholder="Email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
         />
+      </div>
+      <div>
+        <label>Password:</label>
         <input
-          onChange={handleChange}
-          value={user.password}
-          name="password"
           type="password"
-          placeholder="Password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
         />
+      </div>
+      <div>
+        <label>Confirm password:</label>
         <input
-          onChange={handleChange}
-          value={user.passwordConfirm}
-          name="passwordConfirm"
           type="password"
-          placeholder="Password confirm"
+          value={confirm}
+          onChange={(e) => setConfirm(e.target.value)}
         />
-        <button>Register</button>
-      </form>
-    </div>
+      </div>
+      <button type="submit">Register</button>
+    </form>
   );
 };
+
 export default RegisterPage;
